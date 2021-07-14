@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Coronavirus Tracker Application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel='stylesheet' href='../static/stylesheets/style.css' />
+	<link rel='stylesheet' href='../static/stylesheets/bootstrap.min.css' />
+    <link rel='stylesheet' href='../static/stylesheets/font-awesome.min.css' />
+
+	<!-- Load c3.css -->
+	<link href="../static/stylesheets/c3.css" rel="stylesheet" type="text/css">
+    <!-- Load d3.js and c3.js -->
+	<script src="../static/javascripts/d3.v3.min.js" charset="utf-8"></script>
+	<script src="../static/javascripts/c3.min.js"></script>
+
+	<!-- Load papaparse.js -->
+	<script src="../static/javascripts/papaparse.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+<h1>Coronavirus Tracker Application</h1>
+<p>This application lists the current number of cases reported across the globe</p>
+
+<div class="jumbotron">
+    <h1 class="display-4" th:text="${totalReportedCases}"></h1>
+    <p class="lead">Total cases reported as of today</p>
+    <hr class="my-4">
+    <p>
+        <span>New cases reported since previous day:</span>
+        <span th:text="${totalNewCases}"></span>
+    </p>
+
+</div>
+
+    <table class="table">
+        <tr>
+            <th>State</th>
+            <th>Country</th>
+            <th>Total cases reported</th>
+            <th>Changes since last day</th>
+        </tr>
+        <tr th:each="locationStat : ${locationStats}">
+            <td th:text="${locationStat.state}"></td>
+            <td th:text="${locationStat.country}"></td>
+            <td th:text="${locationStat.latestTotalCases}">0</td>
+            <td th:text="${locationStat.diffFromPrevDay}">0</td>
+        </tr>
+    </table>
+</div>
+
+<br><br><br>
+<div class="container">
+    <div id="chart"></div>
+</div>
+
+<div class="container">
+    <div id="chart1"></div>
+</div>
+<script src="../static/javascripts/create-graph.js"></script>
+</body>
+
+</html>
